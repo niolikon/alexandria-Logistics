@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Font-Awesome SCSS file. */
+@import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+// retrieve colors from palettes
+$lt-gray: mat.get-color-from-palette(mat.$grey-palette, 200);
+$background-dark: mat.get-color-from-palette(mat.$indigo-palette, 900);
+$background-light: mat.get-color-from-palette(mat.$indigo-palette, 400);
+$background-pale: mat.get-color-from-palette(mat.$indigo-palette, 100);
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
+}
+  
+.container {
+    margin: 20px;
+    display:flex;
+}
+  
+.flex-spacer {
+    flex: 1 1 auto;
+}

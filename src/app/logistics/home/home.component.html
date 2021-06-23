@@ -1,0 +1,42 @@
+<div fxLayout="column">
+    <div class="container jumbotron" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+        fxLayoutAlign.xs="start center" fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center"
+        fxLayoutGap="10px">
+    
+        <div fxFlex fxFlex.gt-sm="50%">
+            <h1>Alexandria-Logistics</h1>
+            <p>Management of Inventory, Orders and Shipping with style!</p>
+        </div>
+        <div fxFlex fxFlex.gt-sm="20%">
+            <!-- <img src="/assets/images/logo.png" alt="Logo"> -->
+        </div>
+        <div fxFlex></div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" *ngIf="!logged" >
+        <form novalidate [formGroup]="loginForm" #lform="ngForm" (ngSubmit)="onSubmit()">
+            <mat-card class="login-card">
+                <mat-card-content>
+                    <p *ngIf="loginRequested && (!loginResponseStatus)">
+                        <mat-error >{{loginResponseString}}</mat-error>
+                    </p>
+                    <p>
+                        <mat-form-field class="full-width">
+                            <input matInput formControlName="username" placeholder="Username" type="text" required>
+                            <mat-error *ngIf="formErrors.username"> {{formErrors.username}} </mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field class="full-width">
+                            <input matInput formControlName="password" placeholder="Password" type="password" required>
+                            <mat-error *ngIf="formErrors.password"> {{formErrors.password}} </mat-error>
+                        </mat-form-field>
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button type="submit" [disabled]="loginForm.invalid" class="full-width">SUBMIT</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>

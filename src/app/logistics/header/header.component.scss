@@ -1,0 +1,15 @@
+@use '~@angular/material' as mat;
+
+$background-dark: mat.get-color-from-palette(mat.$indigo-palette, 900);
+
+.companyName {
+    font-size: 150%;
+}
+
+.flex-spacer {
+    flex: 1 1 auto;
+}
+
+.active {
+    background: $background-dark;
+}

@@ -1,0 +1,16 @@
+<p>
+    <mat-toolbar color="primary" *ngIf="logged" [ngSwitch]="routeUrl">
+        <mat-toolbar-row>
+            <button mat-flat-button routerLink="/home" color="primary" class="companyName">Alexandria</button>
+            <button mat-flat-button routerLink="/inventory" color="primary" routerLinkActive="active"><i class="fas fa-list-alt fa-lg"></i> Inventory</button>
+            <span class="flex-spacer"></span>
+            <button mat-flat-button (click)="logOut()" color="primary"><i class="fa fa-sign-out-alt fa-lg"></i> Logout</button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row *ngIf="routeUrl.indexOf('/inventory') !== -1">
+            <button mat-flat-button routerLink="/inventory/products" routerLinkActive="active" color="primary">Products</button>
+            <button mat-flat-button routerLink="/inventory/persons" routerLinkActive="active" color="primary">Persons</button>
+            <button mat-flat-button routerLink="/inventory/companies" routerLinkActive="active" color="primary">Companies</button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</p>

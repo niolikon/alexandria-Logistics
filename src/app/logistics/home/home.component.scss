@@ -1,0 +1,24 @@
+@use '~@angular/material' as mat;
+
+$background-light: mat.get-color-from-palette(mat.$indigo-palette, 400);
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
+}
+
+.login-card {
+    width:400px;
+    margin-top: 50px;
+}
+
+.full-width {
+    width: 100%
+}
+
+.jumbotron {
+    @include zero-margin(70px,30px);
+    background: $background-light ;
+    color:floralwhite;
+    min-height: 150px;
+}

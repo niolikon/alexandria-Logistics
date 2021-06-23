@@ -1,0 +1,13 @@
+@use '~@angular/material' as mat;
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
+}
+
+$background-light: mat.get-color-from-palette(mat.$indigo-palette, 400);
+
+.footer{
+    background-color: $background-light;
+    @include zero-margin(20px, 0px);
+}
