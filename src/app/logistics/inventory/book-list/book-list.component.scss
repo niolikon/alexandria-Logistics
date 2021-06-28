@@ -1,0 +1,31 @@
+.table-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+}
+
+/* Column Widths */
+th {
+    font-size: 20px;
+}
+td.mat-column-id {
+    width: 128px;
+}
+td.mat-column-title {
+    min-width: 64px;
+}
+th.mat-column-action,
+td.mat-column-action {
+    width: 120px;
+    text-align:center;
+}
+
+/* Icon styling */
+.add-icon {
+    font-size: 20px;
+}

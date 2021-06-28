@@ -1,1 +1,19 @@
-<p>inventory-home works!</p>
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <h2>Inventory</h2>
+        <hr>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-around center" >
+    <a fxFlex="30" mat-button color="primary" [routerLink]="['/inventory/products']" matTooltip="Products" class="home-link"><i class="fas fa-cube fa-9x"></i></a>
+    <a fxFlex="30" mat-button color="primary" [routerLink]="['/inventory/persons']" matTooltip="Persons" class="home-link"><i class="fas fa-users fa-9x"></i></a>
+    <a fxFlex="30" mat-button color="primary" [routerLink]="['/inventory/companies']" matTooltip="Companies" class="home-link"><i class="far fa-building fa-9x"></i></a>
+    <a fxFlex="30" mat-button color="primary" [routerLink]="['/inventory/companies']" matTooltip="Books" class="home-link"><i class="fas fa-book fa-9x"></i></a>
+  </div>
+
+</div>

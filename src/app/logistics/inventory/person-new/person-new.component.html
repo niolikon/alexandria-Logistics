@@ -1,0 +1,35 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h2>New Person</h2>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex>
+        <form novalidate [formGroup]="personInsertForm" #lform="ngForm" (ngSubmit)="onPersonInsert()">
+            <div fxLayout="column" fxLayout.gt-sm="row">
+                <div fxFlex>
+                    <mat-form-field class="input-name" appearance="outline">
+                        <mat-label>Person name</mat-label>
+                        <input matInput formControlName="name" placeholder="Person name" type="text" required>
+                        <mat-error *ngIf="personInsertFormErrors.name"> {{personInsertFormErrors.name}} </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="input-surname" appearance="outline">
+                        <mat-label>Person surname</mat-label>
+                        <input matInput formControlName="surname" placeholder="Person surname" type="text" required>
+                        <mat-error *ngIf="personInsertFormErrors.surname"> {{personInsertFormErrors.surname}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <p>
+                        <a mat-button color="primary" [disabled]="personInsertForm.invalid"
+                            (click)="onPersonInsert()">INSERT</a>
+                        <a mat-button color="warn" (click)="onPersonCancel()">CANCEL</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,1 +1,1 @@
-export const baseURL = 'http://localhost:8080/inventory/';
+export const inventoryBaseURL = 'http://localhost:8080/inventory/';

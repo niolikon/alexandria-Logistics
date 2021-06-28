@@ -9,7 +9,6 @@ $background-light: mat.get-color-from-palette(mat.$indigo-palette, 400);
 
 .login-card {
     width:400px;
-    margin-top: 50px;
 }
 
 .full-width {
@@ -21,4 +20,5 @@ $background-light: mat.get-color-from-palette(mat.$indigo-palette, 400);
     background: $background-light ;
     color:floralwhite;
     min-height: 150px;
+    margin-bottom: 50px;
 }

@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
-import { Subscription } from 'rxjs';
+import { User } from 'src/app/authentication/model/user';
 
-interface IFormErrors {
+export interface IFormErrors {
   username: string;
   password: string;
 }
-interface IFormValidationMessages {
+
+export interface IFormValidationMessages {
   username: object;
   password: object;
 }
@@ -24,9 +24,6 @@ export class HomeComponent implements OnInit {
     username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
     password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
   });
-
-  @ViewChild('fform') 
-  loginFormDirective: any;
 
   formErrors:IFormErrors = {
     username: '',
@@ -51,22 +48,23 @@ export class HomeComponent implements OnInit {
   loginRequested:boolean = false;
 
   logged: Boolean = this.authService.getIsUserLogged();
-  loggedSubscription: Subscription = Subscription.EMPTY;
+  userInfo: User = User.EMPTY;
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService,
-    private router: Router) {
+  @ViewChild(NgForm) 
+  loginFormView?:NgForm;
+
+  constructor(private fb: FormBuilder, private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    this.registerFormActions();
+    this.authService.observeIsUserLogged()
+      .subscribe(value => this.logged = value);
+    this.authService.observeUserData()
+      .subscribe(value => this.userInfo = value);
 
-    this.loggedSubscription = this.authService.observeIsUserLogged()
-    .subscribe(value => this.logged = value);
-  }
-
-  registerFormActions() {
-    this.loginForm.valueChanges.subscribe(data => this.onValueChanged(data));
-    this.onValueChanged(); // (re)set form validation messages
+    this.loginForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+    this.onValueChanged();
   }
 
   onValueChanged(data?: any) {
@@ -116,7 +114,6 @@ export class HomeComponent implements OnInit {
       (error) => { 
         this.loginResponseString = 'Your login attempt has failed. Make sure the username and password are correct.';
         this.loginResponseStatus = false;
-      })
-    ;
+      });
   }
 }

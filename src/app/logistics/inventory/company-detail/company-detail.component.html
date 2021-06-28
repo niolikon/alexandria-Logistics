@@ -1,1 +1,56 @@
-<p>company-detail works!</p>
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <h2>Company [{{company.id}}] detail</h2>
+        <hr>
+    </div>
+  </div>
+
+  <div fxFlex *ngIf="!isLoading && !isLoadingError">
+    <form novalidate [formGroup]="companyUpdateForm" #lform="ngForm" (ngSubmit)="onCompanyUpdate()">
+      <div fxLayout="column" fxLayout.gt-sm="row">
+        <div fxFlex="70">
+          <ng-template [ngIf]="companyUpdateEnabled">
+            <mat-form-field class="input-name" appearance="outline">
+              <mat-label>Company name</mat-label>
+              <input matInput formControlName="name" placeholder="Company name" type="text" required>
+              <mat-error *ngIf="companyUpdateFormErrors.name"> {{companyUpdateFormErrors.name}} </mat-error>
+            </mat-form-field>     
+          </ng-template>
+          <ng-template [ngIf]="!companyUpdateEnabled">
+            <h2>{{company.name}}</h2>
+            <hr>
+            <!--
+            <dl>
+              <dt>Other:</dt>
+              <dd>{{company.other}}</dd>
+            </dl>
+            -->
+          </ng-template>
+
+          <p *ngIf="companyUpdateEnabled">
+            <a mat-button color="primary" [disabled]="companyUpdateForm.invalid" (click)="onCompanyUpdate()">UPDATE</a>
+            <a mat-button color="warn" (click)="onCompanyDelete()">DELETE</a>
+          </p>
+          <mat-slide-toggle color="primary" (change)="toggleEdit($event)" [checked]="companyUpdateEnabled">
+            Allow modification
+          </mat-slide-toggle>
+        </div>
+        <div fxFlex="30">
+            &nbsp;
+        </div>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!isLoading">
+      <mat-spinner></mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="isLoadingError">
+      <h2>Error</h2>
+      <h4>{{errorMessage}}</h4>
+  </div>
+</div>

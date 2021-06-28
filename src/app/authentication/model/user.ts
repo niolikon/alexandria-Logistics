@@ -13,4 +13,12 @@ export class User {
         this.facebookId = facebookId;
         this.roles = roles;
     }
+
+    static EMPTY: User = {
+        username: '',
+        firstname: '',
+        lastname: '',
+        facebookId: '',
+        roles:[]
+    }
 }

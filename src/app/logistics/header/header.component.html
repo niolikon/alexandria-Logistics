@@ -8,9 +8,11 @@
         </mat-toolbar-row>
 
         <mat-toolbar-row *ngIf="routeUrl.indexOf('/inventory') !== -1">
-            <button mat-flat-button routerLink="/inventory/products" routerLinkActive="active" color="primary">Products</button>
-            <button mat-flat-button routerLink="/inventory/persons" routerLinkActive="active" color="primary">Persons</button>
-            <button mat-flat-button routerLink="/inventory/companies" routerLinkActive="active" color="primary">Companies</button>
+            <button mat-flat-button routerLink="/inventory/products" routerLinkActive="active" color="primary"><i class="fas fa-cube"></i>&nbsp;&nbsp;Products</button>
+            <button mat-flat-button routerLink="/inventory/persons" routerLinkActive="active" color="primary"><i class="fas fa-users"></i>&nbsp;&nbsp;Persons</button>
+            <button mat-flat-button routerLink="/inventory/companies" routerLinkActive="active" color="primary"><i class="far fa-building"></i>&nbsp;&nbsp;Companies</button>
+            <span class="flex-spacer"></span>
+            <button mat-flat-button routerLink="/inventory/books" routerLinkActive="active" color="primary"><i class="fas fa-book"></i>&nbsp;&nbsp;Books</button>
         </mat-toolbar-row>
     </mat-toolbar>
 </p>

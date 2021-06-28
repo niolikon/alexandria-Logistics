@@ -3,14 +3,27 @@
         fxLayoutAlign.xs="start center" fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center"
         fxLayoutGap="10px">
     
-        <div fxFlex fxFlex.gt-sm="50%">
-            <h1>Alexandria-Logistics</h1>
-            <p>Management of Inventory, Orders and Shipping with style!</p>
-        </div>
-        <div fxFlex fxFlex.gt-sm="20%">
-            <!-- <img src="/assets/images/logo.png" alt="Logo"> -->
-        </div>
-        <div fxFlex></div>
+        <ng-template [ngIf]="!logged">
+            <div fxFlex fxFlex.gt-sm="50%">
+                <h1>Alexandria-Logistics</h1>
+                <p>Management of Inventory, Orders and Shipping with style!</p>
+            </div>
+            <div fxFlex fxFlex.gt-sm="20%">
+                <!-- <img src="/assets/images/logo.png" alt="Logo"> -->
+            </div>
+            <div fxFlex></div>
+        </ng-template>
+    
+        <ng-template [ngIf]="logged">
+            <div fxFlex fxFlex.gt-sm="50%">
+                <h1>Welcome back</h1>
+                <p>{{userInfo.firstname}} {{userInfo.lastname}} </p>
+            </div>
+            <div fxFlex fxFlex.gt-sm="20%">
+                <!-- <img src="/assets/images/logo.png" alt="Logo"> -->
+            </div>
+            <div fxFlex></div>
+        </ng-template>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center" *ngIf="!logged" >
@@ -39,4 +52,5 @@
             </mat-card>
         </form>
     </div>
+
 </div>

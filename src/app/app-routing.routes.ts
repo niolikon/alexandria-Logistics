@@ -8,6 +8,8 @@ import { PersonListComponent } from './logistics/inventory/person-list/person-li
 import { PersonDetailComponent } from './logistics/inventory/person-detail/person-detail.component';
 import { ProductListComponent } from './logistics/inventory/product-list/product-list.component';
 import { ProductDetailComponent } from './logistics/inventory/product-detail/product-detail.component';
+import { BookListComponent } from './logistics/inventory/book-list/book-list.component';
+import { BookDetailComponent } from './logistics/inventory/book-detail/book-detail.component';
 
 import { HomeComponent } from './logistics/home/home.component';
 
@@ -19,6 +21,8 @@ export const routes: Routes = [
   { path: 'inventory/persons/:id', component: PersonDetailComponent, canActivate: [AuthGuard] },
   { path: 'inventory/products', component: ProductListComponent, canActivate: [AuthGuard] },
   { path: 'inventory/products/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+  { path: 'inventory/books', component: BookListComponent, canActivate: [AuthGuard] },
+  { path: 'inventory/books/:id', component: BookDetailComponent, canActivate: [AuthGuard] },
 
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

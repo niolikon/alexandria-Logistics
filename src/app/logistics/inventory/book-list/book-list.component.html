@@ -1,0 +1,81 @@
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="container">
+            <div>
+                <h2>Book list</h2>
+            </div>
+            <div>
+                <button mat-button color="primary" (click)="onBookNew()" matTooltip="Insert new company"><i class="fas fa-plus-circle add-icon"></i></button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="column">
+
+    <ng-template [ngIf]="!isLoading && !isLoadingError">
+        <div class="table-container mat-elevation-z2">
+            <table mat-table [dataSource]="books" matSort matSortActive="id" 
+            matSortDisableClear matSortDirection="desc">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let book"> {{book.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Title </th>
+                    <td mat-cell *matCellDef="let book"> {{book.title}} </td>
+                </ng-container>
+                <ng-container matColumnDef="author">
+                    <th mat-header-cell *matHeaderCellDef> Author </th>
+                    <td mat-cell *matCellDef="let book"> {{book.author.name}} {{book.author.surname}} </td>
+                </ng-container>
+                <ng-container matColumnDef="publisher">
+                    <th mat-header-cell *matHeaderCellDef> Publisher </th>
+                    <td mat-cell *matCellDef="let book"> {{book.publisher.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="label">
+                    <th mat-header-cell *matHeaderCellDef> Label </th>
+                    <td mat-cell *matCellDef="let book"> {{book.label}} </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> Price </th>
+                    <td mat-cell *matCellDef="let book">  {{book.price}} </td>
+                </ng-container>
+                <ng-container matColumnDef="pages">
+                    <th mat-header-cell *matHeaderCellDef> Pages </th>
+                    <td mat-cell *matCellDef="let book">  {{book.pages}} </td>
+                </ng-container>
+                <ng-container matColumnDef="isbn">
+                    <th mat-header-cell *matHeaderCellDef> ISBN </th>
+                    <td mat-cell *matCellDef="let book">  {{book.isbn}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let book">
+                        <button mat-raised-button color="primary" [routerLink]="['/inventory/books/', book.id]"> Detail </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="booksTableColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: booksTableColumns;"></tr>
+            </table>
+        </div> 
+        <div class="table-paginator">
+            <mat-paginator [length]="booksTotal" [pageSize]="booksPaginatorSize" 
+                    [pageSizeOptions]="booksPaginatorSizeOptions" (page)="handlePaging($event)"></mat-paginator>
+        </div>
+    </ng-template>
+    <div [hidden]="!isLoading">
+        <mat-spinner></mat-spinner>
+        <h4>Loading . . . Please Wait</h4>
+    </div>
+    <div *ngIf="isLoadingError">
+        <h2>Error</h2>
+        <h4>{{errorMessage}}</h4>
+    </div>
+  </div>
+
+</div>

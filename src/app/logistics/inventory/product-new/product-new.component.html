@@ -1,0 +1,48 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h2>New Product</h2>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex>
+        <form novalidate [formGroup]="productInsertForm" #lform="ngForm" (ngSubmit)="onProductInsert()">
+            <div fxLayout="column" fxLayout.gt-sm="row">
+                <div fxFlex>
+                    <mat-form-field class="input-name" appearance="outline">
+                        <mat-label>Product name</mat-label>
+                        <input matInput formControlName="name" placeholder="Product name" type="text" required>
+                        <mat-error *ngIf="productInsertFormErrors.name"> {{productInsertFormErrors.name}} </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="input-label" appearance="outline">
+                        <mat-label>Product label</mat-label>
+                        <input matInput formControlName="label" placeholder="Product label" type="text">
+                        <mat-hint>Hint: use catchy words like NEW or HOT</mat-hint>
+                      </mat-form-field>
+                      <mat-form-field class="input-price" appearance="outline">
+                        <mat-label>Product price</mat-label>
+                        <input matInput formControlName="price" placeholder="Product price" type="number" required>
+                        <span matSuffix>&nbsp; €</span>
+                        <mat-error *ngIf="productInsertFormErrors.price"> {{productInsertFormErrors.price}} </mat-error>
+                      </mat-form-field>
+
+                      <p>
+                        <mat-form-field class="input-description" appearance="outline">
+                          <mat-label>Product description</mat-label>
+                          <textarea matInput formControlName="description" placeholder="Product description" required></textarea>
+                          <mat-error *ngIf="productInsertFormErrors.description"> {{productInsertFormErrors.description}} </mat-error>
+                        </mat-form-field>
+                      </p>
+
+                    <p>
+                        <a mat-button color="primary" [disabled]="productInsertForm.invalid"
+                            (click)="onProductInsert()">INSERT</a>
+                        <a mat-button color="warn" (click)="onProductCancel()">CANCEL</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

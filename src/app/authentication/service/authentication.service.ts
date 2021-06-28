@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { JWTResponse } from '../dto/jwtresponse';
@@ -19,7 +19,6 @@ export class AuthenticationService {
 
   private userDataSubject: Subject<User> = new Subject<User>();
   private isLoggedSubject: Subject<Boolean> = new Subject<Boolean>();
-  private isLogged: Boolean = false;
 
   constructor(private http: HttpClient,
     private processHTTPMsgService: ProcessHTTPMsgService,
@@ -37,7 +36,7 @@ export class AuthenticationService {
   }
 
   getIsUserLogged(): Boolean {
-    return this.isLogged;
+    return (this.credentialsService.isStatusValid());
   }
 
   initStatus() {
@@ -54,24 +53,36 @@ export class AuthenticationService {
     }
 
     this.isLoggedSubject.next(true);
-    this.isLogged = true;
-    console.log('User access granted!');
   }
 
   propagateLogoutStatus() {
     this.userDataSubject.next(undefined);
     this.isLoggedSubject.next(false);
-    this.isLogged = false;
-    console.log('User access denied!');
   }
 
   doLogIn(user: any): Observable<any> {
+   /************************************
+    * TEST CODE
+    ************************************
+    let userDetails:User = {
+      username: 'simone',
+      firstname: 'Simone',
+      lastname: 'Muscas',
+      facebookId: '',
+      roles: ['operator','admin']
+    };
+    let credentials:Credentials = { username: userDetails.username, token: '0123456789' };
+    this.credentialsService.storeCredentials(credentials);
+    this.propagateLoginStatus(userDetails);
+    return of({ 'success': true, 'username': credentials.username });
+    */
+
     return this.http.post<AuthResponse>(baseURL + 'users/login',
       { 'username': user.username, 'password': user.password })
       .pipe(map(res => {
         let credentials:Credentials = { username: user.username, token: res.token };
         this.credentialsService.storeCredentials(credentials);
-        this.propagateLoginStatus();
+        this.doCheckJWTtoken();
         return { 'success': true, 'username': credentials.username };
       }),
         catchError(error => this.processHTTPMsgService.handleError(error)));

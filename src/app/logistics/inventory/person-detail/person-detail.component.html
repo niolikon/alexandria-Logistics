@@ -1,1 +1,59 @@
-<p>person-detail works!</p>
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+      <h2>Person [{{person.id}}] detail</h2>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex *ngIf="!isLoading && !isLoadingError">
+    <form novalidate [formGroup]="personUpdateForm" #lform="ngForm" (ngSubmit)="onPersonUpdate()">
+      <div fxLayout="column" fxLayout.gt-sm="row">
+        <div fxFlex="70">
+          <ng-template [ngIf]="personUpdateEnabled">
+            <mat-form-field class="input-name" appearance="outline">
+              <mat-label>Person name</mat-label>
+              <input matInput formControlName="name" placeholder="Person name" type="text" required>
+              <mat-error *ngIf="personUpdateFormErrors.name"> {{personUpdateFormErrors.name}} </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-surname" appearance="outline">
+              <mat-label>Person surname</mat-label>
+              <input matInput formControlName="surname" placeholder="Person surname" type="text" required>
+              <mat-error *ngIf="personUpdateFormErrors.surname"> {{personUpdateFormErrors.surname}} </mat-error>
+            </mat-form-field>
+          </ng-template>
+          <ng-template [ngIf]="!personUpdateEnabled">
+            <h2>{{person.name}} {{person.surname}}</h2>
+            <hr>
+            <!--
+            <dl>
+              <dt>Other:</dt>
+              <dd>{{person.other}}</dd>
+            </dl>
+            -->
+          </ng-template>
+
+          <p *ngIf="personUpdateEnabled">
+            <a mat-button color="primary" [disabled]="personUpdateForm.invalid" (click)="onPersonUpdate()">UPDATE</a>
+            <a mat-button color="warn" (click)="onPersonDelete()">DELETE</a>
+          </p>
+          <mat-slide-toggle color="primary" (change)="toggleEdit($event)" [checked]="personUpdateEnabled">
+            Allow modification
+          </mat-slide-toggle>
+        </div>
+        <div fxFlex="30">
+          &nbsp;
+        </div>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!isLoading">
+    <mat-spinner></mat-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="isLoadingError">
+    <h2>Error</h2>
+    <h4>{{errorMessage}}</h4>
+  </div>
+</div>

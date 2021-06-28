@@ -1,0 +1,77 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h2>New Book</h2>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex>
+        <form novalidate [formGroup]="bookInsertForm" #lform="ngForm" (ngSubmit)="onBookInsert()">
+            <div fxLayout="column" fxLayout.gt-sm="row">
+                <div fxFlex>
+                    <mat-form-field class="input-title" appearance="outline">
+                        <mat-label>Book title</mat-label>
+                        <input matInput formControlName="title" placeholder="Book name" type="text" required>
+                        <mat-error *ngIf="bookInsertFormErrors.title"> {{bookInsertFormErrors.title}} </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="input-author" appearance="outline">
+                        <mat-label>Book author</mat-label>
+                        <mat-select formControlName="authorId" name="author">
+                          <mat-option *ngFor="let author of authors" [value]="author.id">
+                            {{author.name}} {{author.surname}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="bookInsertFormErrors.authorId"> {{bookInsertFormErrors.authorId}} </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="input-publisher" appearance="outline">
+                        <mat-label>Book publisher</mat-label>
+                        <mat-select formControlName="publisherId" name="publisher">
+                          <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
+                            {{publisher.name}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="bookInsertFormErrors.publisherId"> {{bookInsertFormErrors.publisherId}} </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="input-label" appearance="outline">
+                        <mat-label>Book label</mat-label>
+                        <input matInput formControlName="label" placeholder="Book label" type="text">
+                        <mat-hint>Hint: use catchy words like NEW or HOT</mat-hint>
+                      </mat-form-field>
+                      <mat-form-field class="input-price" appearance="outline">
+                        <mat-label>Book price</mat-label>
+                        <input matInput formControlName="price" placeholder="Book price" type="number" required>
+                        <span matSuffix>&nbsp; €</span>
+                        <mat-error *ngIf="bookInsertFormErrors.price"> {{bookInsertFormErrors.price}} </mat-error>
+                      </mat-form-field>    
+
+                      <mat-form-field class="input-pages" appearance="outline">
+                        <mat-label>Book pages</mat-label>
+                        <input matInput formControlName="pages" placeholder="Book pages" type="number" required>
+                        <mat-error *ngIf="bookInsertFormErrors.pages"> {{bookInsertFormErrors.pages}} </mat-error>
+                      </mat-form-field>  
+                      <mat-form-field class="input-isbn" appearance="outline">
+                        <mat-label>Book ISBN</mat-label>
+                        <input matInput formControlName="isbn" placeholder="Book ISBN" type="text" required>
+                        <mat-error *ngIf="bookInsertFormErrors.isbn"> {{bookInsertFormErrors.isbn}} </mat-error>
+                      </mat-form-field> 
+
+                      <p>
+                        <mat-form-field class="input-synopsis" appearance="outline">
+                          <mat-label>Book synopsis</mat-label>
+                          <textarea matInput formControlName="synopsis" placeholder="Book synopsis" required></textarea>
+                          <mat-error *ngIf="bookInsertFormErrors.synopsis"> {{bookInsertFormErrors.synopsis}} </mat-error>
+                        </mat-form-field>
+                      </p>
+
+                    <p>
+                        <a mat-button color="primary" [disabled]="bookInsertForm.invalid"
+                            (click)="onBookInsert()">INSERT</a>
+                        <a mat-button color="warn" (click)="onBookCancel()">CANCEL</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

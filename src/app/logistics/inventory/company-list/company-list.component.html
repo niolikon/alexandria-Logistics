@@ -1,1 +1,58 @@
-<p>company-list works!</p>
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="container">
+            <div>
+                <h2>Company list</h2>
+            </div>
+            <div>
+                <button mat-button color="primary" (click)="onCompanyNew()" matTooltip="Insert new company"><i class="fas fa-plus-circle add-icon"></i></button>
+            </div>
+        </div>
+        <hr>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="column">
+
+    <ng-template [ngIf]="!isLoading && !isLoadingError">
+        <div class="table-container mat-elevation-z2">
+            <table mat-table [dataSource]="companies" matSort matSortActive="id" 
+            matSortDisableClear matSortDirection="desc">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let company"> {{company.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let company"> {{company.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let company">
+                        <button mat-raised-button color="primary" [routerLink]="['/inventory/companies/', company.id]"> Detail </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="companiesTableColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: companiesTableColumns;"></tr>
+            </table>
+        </div> 
+        <div class="table-paginator">
+            <mat-paginator [length]="companiesTotal" [pageSize]="companiesPaginatorSize" 
+                    [pageSizeOptions]="companiesPaginatorSizeOptions" (page)="handlePaging($event)"></mat-paginator>
+        </div>
+    </ng-template>
+    <div [hidden]="!isLoading">
+        <mat-spinner></mat-spinner>
+        <h4>Loading . . . Please Wait</h4>
+    </div>
+    <div *ngIf="isLoadingError">
+        <h2>Error</h2>
+        <h4>{{errorMessage}}</h4>
+    </div>
+  </div>
+
+</div>

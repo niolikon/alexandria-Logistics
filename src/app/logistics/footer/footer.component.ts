@@ -10,15 +10,19 @@ import { AuthenticationService } from 'src/app/authentication/service/authentica
 export class FooterComponent implements OnInit {
 
   logged: Boolean;
-  subscription: Subscription;
+  loggedSubscription: Subscription;
 
   constructor(private authService: AuthenticationService) {
-    this.subscription = Subscription.EMPTY; 
+    this.loggedSubscription = Subscription.EMPTY; 
     this.logged = false;
   }
 
   ngOnInit(): void {
-    this.subscription = this.authService.observeIsUserLogged()
+    this.loggedSubscription = this.authService.observeIsUserLogged()
       .subscribe( value => this.logged = value);
+  }
+
+  ngOnDestroy() {
+    this.loggedSubscription.unsubscribe();
   }
 }

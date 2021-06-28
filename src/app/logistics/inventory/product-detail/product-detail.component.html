@@ -1,1 +1,96 @@
-<p>product-detail works!</p>
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <h2>Product [{{product.id}}] detail</h2>
+        <hr>
+    </div>
+  </div>
+
+  <div fxFlex *ngIf="!isLoading && !isLoadingError">
+    <form novalidate [formGroup]="productUpdateForm" #lform="ngForm" (ngSubmit)="onProductUpdate()">
+      <div fxLayout="column" fxLayout.gt-sm="row">
+        <div fxFlex="70">
+          <ng-template [ngIf]="productUpdateEnabled">
+            <mat-form-field class="input-name" appearance="outline">
+              <mat-label>Product name</mat-label>
+              <input matInput formControlName="name" placeholder="Product name" type="text" required>
+              <mat-error *ngIf="productUpdateFormErrors.name"> {{productUpdateFormErrors.name}} </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-label" appearance="outline">
+              <mat-label>Product label</mat-label>
+              <input matInput formControlName="label" placeholder="Product label" type="text">
+              <mat-hint>Hint: use catchy words like NEW or HOT</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="input-price" appearance="outline">
+              <mat-label>Product price</mat-label>
+              <input matInput formControlName="price" placeholder="Product price" type="number" required>
+              <span matSuffix>&nbsp; €</span>
+              <mat-error *ngIf="productUpdateFormErrors.price"> {{productUpdateFormErrors.price}} </mat-error>
+            </mat-form-field>      
+          </ng-template>
+          <ng-template [ngIf]="!productUpdateEnabled">
+            <h2>{{product.name}}</h2>
+            <button mat-flat-button color="warn">{{product.label}}</button>
+            <hr>
+            <dl>
+              <dt>Price:</dt>
+              <dd>{{product.price}}&nbsp;€</dd>
+            </dl>
+          </ng-template>
+
+          <p *ngIf="productUpdateEnabled">
+            <mat-form-field class="input-description" appearance="outline">
+              <mat-label>Product description</mat-label>
+              <textarea matInput formControlName="description" placeholder="Product description" required></textarea>
+              <mat-error *ngIf="productUpdateFormErrors.description"> {{productUpdateFormErrors.description}} </mat-error>
+            </mat-form-field>
+          </p>
+          <p *ngIf="!productUpdateEnabled">
+            {{product.description}}
+          </p>
+          <p *ngIf="productUpdateEnabled">
+            <a mat-button color="primary" [disabled]="productUpdateForm.invalid" (click)="onProductUpdate()">UPDATE</a>
+            <a mat-button color="warn" (click)="onProductDelete()">DELETE</a>
+          </p>
+          <mat-slide-toggle color="primary" (change)="toggleEdit($event)" [checked]="productUpdateEnabled">
+            Allow modification
+          </mat-slide-toggle>
+        </div>
+        <div fxFlex="30">
+          <mat-card>
+            <img mat-card-image src="{{ baseURL }}images/{{ product.imageIds[productImageIdx] }}"
+              alt="Image {{productImageIdx}} for product {{product.id}}" *ngIf="productImageSize > 0">
+            <ng-template [ngIf]="productUpdateEnabled">
+              <div class="center">
+                <ngx-file-drop dropZoneLabel="Drop images here" accept=".png,.jpg,.jpeg" (onFileDrop)="onImageDrop($event)">
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    Drop images here&nbsp;&nbsp;
+                    <a mat-raised-button color="primary" (click)="openFileSelector()">Browse</a>
+                  </ng-template>
+                </ngx-file-drop>
+              </div>
+            </ng-template>
+            <mat-card-actions *ngIf="productImageIdx >= 0">
+              <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                <a mat-button (click)="onImagePrev()"><span class="fa fa-chevron-left fa-lg" *ngIf="productImageSize > 1"></span></a>
+                <a mat-button (click)="onImageDelete()" color="warn" *ngIf="productUpdateEnabled && (productImageSize >= 1)"><span class="fas fa-trash fa-lg"></span></a>
+                <a mat-button (click)="onImageNext()"><span class="fa fa-chevron-right fa-lg" *ngIf="productImageSize > 1"></span></a>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!isLoading">
+      <mat-spinner></mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="isLoadingError">
+      <h2>Error</h2>
+      <h4>{{errorMessage}}</h4>
+  </div>
+</div>

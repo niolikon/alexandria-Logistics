@@ -8,10 +8,13 @@ export class CredentialsService {
 
   static TOKEN_STORAGE_KEY: string = 'JWT';
   
-  private credentials: Credentials = {username: '', token: ''};
-  private credentialsValid: boolean = false;
+  private credentials: Credentials ;
+  private credentialsValid: boolean;
 
   constructor() { 
+    this.credentials = Credentials.EMPTY;
+    this.credentialsValid = false;
+
     this.loadCredentials();
   }
 
@@ -43,16 +46,13 @@ export class CredentialsService {
 
   storeCredentials(credentials: Credentials) {
     localStorage.setItem(CredentialsService.TOKEN_STORAGE_KEY, JSON.stringify(credentials));
-
-    if (this.credentials.username.length !== 0 && this.credentials.token.length !== 0) {
-      this.credentialsValid = true;
-    }
-    else {
-      this.credentialsValid = false;
-    }
+    this.credentials = credentials;
+    this.credentialsValid = true;
   }
 
   destroyCredentials() {
     localStorage.removeItem(CredentialsService.TOKEN_STORAGE_KEY);
+    this.credentials = Credentials.EMPTY;
+    this.credentialsValid = false;
   }
 }

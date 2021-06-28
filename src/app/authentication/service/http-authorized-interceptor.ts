@@ -13,7 +13,8 @@ export class HttpAuthorizedInterceptor implements HttpInterceptor {
       let credentials:Credentials = this.credentialsService.getCredentials();
 
       // Clone the request and Authorization header with user credentials.
-      const authReq = req.clone({headers: req.headers.set('Authorization', 'bearer ' + credentials.token)});
+      const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + credentials.token)});
+      
       // Pass on the cloned request instead of the original request.
       return next.handle(authReq);
     }

@@ -1,0 +1,29 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h2>New Company</h2>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex>
+        <form novalidate [formGroup]="companyInsertForm" #lform="ngForm" (ngSubmit)="onCompanyInsert()">
+            <div fxLayout="column" fxLayout.gt-sm="row">
+                <div fxFlex>
+                    <mat-form-field class="input-name" appearance="outline">
+                        <mat-label>Company name</mat-label>
+                        <input matInput formControlName="name" placeholder="Company name" type="text" required>
+                        <mat-error *ngIf="companyInsertFormErrors.name"> {{companyInsertFormErrors.name}} </mat-error>
+                    </mat-form-field>
+
+                    <p>
+                        <a mat-button color="primary" [disabled]="companyInsertForm.invalid"
+                            (click)="onCompanyInsert()">INSERT</a>
+                        <a mat-button color="warn" (click)="onCompanyCancel()">CANCEL</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

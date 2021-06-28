@@ -6,4 +6,6 @@ export class Credentials {
         this.username = username;
         this.token = token;
     }
+
+    static EMPTY:Credentials = {username: '', token: ''};
 }
