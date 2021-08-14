@@ -3,6 +3,7 @@
         <mat-toolbar-row>
             <button mat-flat-button routerLink="/home" color="primary" class="companyName">Alexandria</button>
             <button mat-flat-button routerLink="/inventory" color="primary" routerLinkActive="active"><i class="fas fa-list-alt fa-lg"></i> Inventory</button>
+            <button mat-flat-button routerLink="/purchasing" color="primary" routerLinkActive="active"><i class="fas fa-store fa-lg"></i> Purchasing</button>
             <span class="flex-spacer"></span>
             <button mat-flat-button (click)="logOut()" color="primary"><i class="fa fa-sign-out-alt fa-lg"></i> Logout</button>
         </mat-toolbar-row>
@@ -13,6 +14,10 @@
             <button mat-flat-button routerLink="/inventory/companies" routerLinkActive="active" color="primary"><i class="far fa-building"></i>&nbsp;&nbsp;Companies</button>
             <span class="flex-spacer"></span>
             <button mat-flat-button routerLink="/inventory/books" routerLinkActive="active" color="primary"><i class="fas fa-book"></i>&nbsp;&nbsp;Books</button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row *ngIf="routeUrl.indexOf('/purchasing') !== -1">
+            <button mat-flat-button routerLink="/purchasing/orders" routerLinkActive="active" color="primary"><i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Orders</button>
         </mat-toolbar-row>
     </mat-toolbar>
 </p>
