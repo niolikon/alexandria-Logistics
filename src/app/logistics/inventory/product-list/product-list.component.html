@@ -48,6 +48,19 @@
                     <th mat-header-cell *matHeaderCellDef> Price </th>
                     <td mat-cell *matCellDef="let product">  {{product.price}} </td>
                 </ng-container>
+                <ng-container matColumnDef="featured">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let product">
+                        <button  mat-icon-button *ngIf="product.featured" (click)="onToggleFeatured(product)" color="primary"
+                            aria-label="Unmark product as featured" matTooltip="Remove from featured">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                        <button  mat-icon-button *ngIf="!product.featured" (click)="onToggleFeatured(product)" color="primary"
+                            aria-label="Mark product as featured" matTooltip="Add to featured">
+                            <mat-icon>favorite_border</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell *matCellDef="let product">
