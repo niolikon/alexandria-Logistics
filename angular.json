@@ -79,6 +79,9 @@
               "browserTarget": "alexandria-Logistics:build:development"
             }
           },
+          "options": {
+            "port": 3100
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
