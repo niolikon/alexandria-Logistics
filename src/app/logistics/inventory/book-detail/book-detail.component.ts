@@ -229,16 +229,18 @@ export class BookDetailComponent implements OnInit {
   onBookUpdate() {
     let bookUpdated:BookRequest = this.bookUpdateForm.value;
 
-    this.bookService.updateBook(this.bookIdParam, bookUpdated)
-      .subscribe(
-        (result) => {
-          this.refreshCard();
-          this.bookUpdateEnabled = false;
-          this.snackBar.open('Book update success', 'OK', { duration: 2000 });
-        },
-        (error) => {
-          this.snackBar.open('Book update error', 'OK', { duration: 2000 });
-        });
+    if (this.bookUpdateEnabled) {
+      this.bookService.updateBook(this.bookIdParam, bookUpdated)
+        .subscribe(
+          (result) => {
+            this.refreshCard();
+            this.bookUpdateEnabled = false;
+            this.snackBar.open('Book update success', 'OK', { duration: 2000 });
+          },
+          (error) => {
+            this.snackBar.open('Book update error', 'OK', { duration: 2000 });
+          });
+    }
   }
 
   onBookDelete() {
