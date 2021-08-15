@@ -171,16 +171,19 @@ export class ProductDetailComponent implements OnInit {
   onProductUpdate() {
     let productUpdated = this.productUpdateForm.value;
 
-    this.prodService.updateProduct(this.productIdParam, productUpdated)
-      .subscribe(
-        (result) => {
-          this.refreshCard();
-          this.productUpdateEnabled = false;
-          this.snackBar.open('Product update success', 'OK', { duration: 2000 });
-        },
-        (error) => {
-          this.snackBar.open('Product update error', 'OK', { duration: 2000 });
-        });
+    if (this.productUpdateEnabled) {
+      this.prodService.updateProduct(this.productIdParam, productUpdated)
+        .subscribe(
+          (result) => {
+            this.refreshCard();
+            this.productUpdateEnabled = false;
+            this.snackBar.open('Product update success', 'OK', { duration: 2000 });
+          },
+          (error) => {
+            this.snackBar.open('Product update error', 'OK', { duration: 2000 });
+          });
+
+    }
   }
 
   onProductDelete() {
