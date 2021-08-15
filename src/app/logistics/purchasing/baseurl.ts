@@ -1,0 +1,1 @@
+export const purchasingBaseURL = 'http://localhost:8380/purchasing/';

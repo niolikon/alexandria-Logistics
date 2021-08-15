@@ -12,6 +12,9 @@ import { BookListComponent } from './logistics/inventory/book-list/book-list.com
 import { BookDetailComponent } from './logistics/inventory/book-detail/book-detail.component';
 
 import { HomeComponent } from './logistics/home/home.component';
+import { OrderListComponent } from './logistics/purchasing/order-list/order-list.component';
+import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/purchasing-home.component';
+import { OrderDetailComponent } from './logistics/purchasing/order-detail/order-detail.component';
 
 export const routes: Routes = [
   { path: 'inventory',  component: InventoryHomeComponent, canActivate: [AuthGuard] },
@@ -23,6 +26,10 @@ export const routes: Routes = [
   { path: 'inventory/products/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
   { path: 'inventory/books', component: BookListComponent, canActivate: [AuthGuard] },
   { path: 'inventory/books/:id', component: BookDetailComponent, canActivate: [AuthGuard] },
+  
+  { path: 'purchasing',  component: PurchasingHomeComponent, canActivate: [AuthGuard] },
+  { path: 'purchasing/orders', component: OrderListComponent, canActivate: [AuthGuard] },
+  { path: 'purchasing/orders/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
 
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
