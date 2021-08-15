@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../model/product';
+import { Product, ProductRequest } from '../model/product';
 import { ProductService } from '../service/product.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ProductNewComponent } from '../product-new/product-new.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-list',
@@ -29,14 +30,14 @@ export class ProductListComponent implements OnInit {
   productsPaginatorSize: number;
   productsPaginatorIndex: number;
 
-  constructor(private prodService: ProductService, public dialog: MatDialog) {
+  constructor(private prodService: ProductService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.isLoading = true;
     this.isLoadingError = false;
     this.errorMessage = '';
 
     this.products = [];
     this.productsTotal = 0;
-    this.productsTableColumns = ['id', 'name', 'description', 'label', 'type', 'price', 'action'];
+    this.productsTableColumns = ['id', 'name', 'description', 'label', 'type', 'price', 'featured', 'action'];
 
     this.productsPaginatorIndex = 0;
     this.productsPaginatorSizeOptions = [5, 10, 25, 100];
@@ -84,5 +85,21 @@ export class ProductListComponent implements OnInit {
         (result) => {
           this.refreshTable();
         });
+  }
+
+  onToggleFeatured(product:Product) {
+    let updatedProduct:ProductRequest = ProductRequest.fromProduct(product);
+    updatedProduct.featured = (!product.featured);
+
+    this.prodService.updateProduct(String(product.id), updatedProduct)
+      .subscribe(
+        (result) => {
+          this.refreshTable();
+          this.snackBar.open('Product update success', 'OK', { duration: 2000 });
+        },
+        (error) => {
+          this.snackBar.open('Product update error', 'OK', { duration: 2000 });
+        });
+
   }
 }
