@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../model/book';
+import { Book, BookRequest } from '../model/book';
 import { BookService } from '../service/book.service';
 import { PageEvent } from '@angular/material/paginator';
 import { BookNewComponent } from '../book-new/book-new.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book-list',
@@ -29,14 +30,14 @@ export class BookListComponent implements OnInit {
   booksPaginatorSize: number;
   booksPaginatorIndex: number;
 
-  constructor(private prodService: BookService, public dialog: MatDialog) {
+  constructor(private prodService: BookService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.isLoading = true;
     this.isLoadingError = false;
     this.errorMessage = '';
 
     this.books = [];
     this.booksTotal = 0;
-    this.booksTableColumns = ['id', 'title', 'author', 'publisher', 'label', 'price', 'pages', 'isbn', 'action'];
+    this.booksTableColumns = ['id', 'title', 'author', 'publisher', 'label', 'price', 'pages', 'isbn', 'featured', 'action'];
 
     this.booksPaginatorIndex = 0;
     this.booksPaginatorSizeOptions = [5, 10, 25, 100];
@@ -84,5 +85,21 @@ export class BookListComponent implements OnInit {
         (result) => {
           this.refreshTable();
         });
+  }
+
+  onToggleFeatured(book:Book) {
+    let updatedBook:BookRequest = BookRequest.fromBook(book);
+    updatedBook.featured = (!book.featured);
+
+    this.prodService.updateBook(String(book.id), updatedBook)
+      .subscribe(
+        (result) => {
+          this.refreshTable();
+          this.snackBar.open('Book update success', 'OK', { duration: 2000 });
+        },
+        (error) => {
+          this.snackBar.open('Book update error', 'OK', { duration: 2000 });
+        });
+
   }
 }

@@ -67,6 +67,12 @@ import { BookNewComponent } from './logistics/inventory/book-new/book-new.compon
 import { InventoryHomeComponent } from './logistics/inventory/inventory-home/inventory-home.component';
 import { HomeComponent } from './logistics/home/home.component';
 
+import { OrderListComponent } from './logistics/purchasing/order-list/order-list.component';
+import { OrderDetailComponent } from './logistics/purchasing/order-detail/order-detail.component';
+import { OrderService } from './logistics/purchasing/service/order.service';
+import { purchasingBaseURL } from './logistics/purchasing/baseurl';
+import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/purchasing-home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +92,9 @@ import { HomeComponent } from './logistics/home/home.component';
     BookNewComponent,
     InventoryHomeComponent,
     HomeComponent,
+    PurchasingHomeComponent,
+    OrderListComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,9 +142,14 @@ import { HomeComponent } from './logistics/home/home.component';
     PersonService,
     ProductService,
     ImageService,
+    OrderService,
     { 
       provide: 'inventoryBaseURL', 
       useValue: inventoryBaseURL
+    },
+    { 
+      provide: 'purchasingBaseURL', 
+      useValue: purchasingBaseURL
     },
   ],
   entryComponents: [
