@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -104,6 +105,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
     MatCardModule,
     MatBadgeModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,

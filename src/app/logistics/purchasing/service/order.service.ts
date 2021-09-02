@@ -22,6 +22,11 @@ export class OrderService {
       .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
+  getOrder(id: string): Observable<Order> {
+    return this.http.get<Order>(purchasingBaseURL + 'orders/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   updateOrder(id: string, order: OrderRequest): Observable<Order> {
     const httpOptions = {
       headers: new HttpHeaders({
