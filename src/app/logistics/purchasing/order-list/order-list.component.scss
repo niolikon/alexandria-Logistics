@@ -14,12 +14,32 @@ th {
     font-size: 20px;
 }
 td.mat-column-id {
-    width: 200px;
+    width: 240px;
 }
 th.mat-column-action,
 td.mat-column-action {
-    width: 120px;
+    width: 80px;
     text-align:center;
+}
+th.mat-column-items,
+td.mat-column-items {
+    width: 80px;
+    text-align:left;
+}
+th.mat-column-status,
+td.mat-column-status {
+    width: 80px;
+    text-align:left;
+}
+th.mat-column-created,
+td.mat-column-created {
+    width: 160px;
+    text-align:left;
+}
+th.mat-column-updated,
+td.mat-column-updated {
+    width: 160px;
+    text-align:left;
 }
 
 /* Icon styling */
