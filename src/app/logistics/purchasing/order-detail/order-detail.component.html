@@ -76,9 +76,7 @@
         <h4>{{errorMessage}}</h4>
     </div>
 
-    <div class="back-button">
-        <a mat-icon-button color="primary" aria-label="Back to orders" [routerLink]="['/purchasing/orders']">
-            <i class="fas fa-angle-double-left fa-2x" matTooltip="Back to orders"></i>
-        </a>
+    <div class="back-button-container">
+        <app-back-button tooltip="Back to previous page"></app-back-button>
     </div>
 </div>
