@@ -36,8 +36,8 @@
                 <ng-container matColumnDef="type">
                     <th mat-header-cell *matHeaderCellDef> Type </th>
                     <td mat-cell *matCellDef="let product" [ngSwitch]="product.type">  
-                        <i *ngSwitchCase="'book'" class="fas fa-book"></i>
-                        <i *ngSwitchDefault class="fas fa-cube"></i>
+                        <i *ngSwitchCase="'book'" class="fas fa-book" matTooltip="Book item"></i>
+                        <i *ngSwitchDefault class="fas fa-cube" matTooltip="Generic product item"></i>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="label">

@@ -35,7 +35,7 @@ export class OrderListComponent implements OnInit {
 
     this.orders = [];
     this.ordersTotal = 0;
-    this.ordersTableColumns = ['id', 'username', 'items', 'status', 'creation', 'updated', 'action'];
+    this.ordersTableColumns = ['id', 'username', 'items', 'status', 'created', 'updated', 'action'];
 
     this.ordersPaginatorIndex = 0;
     this.ordersPaginatorSizeOptions = [5, 10, 25, 100];
@@ -78,61 +78,5 @@ export class OrderListComponent implements OnInit {
     this.ordersPaginatorSize = event.pageSize;
 
     this.refreshTable();
-  }
-
-  revertOrder(order: Order) {
-    switch (order.status) {
-      case 'NEW':
-        order.status = OrderStatus.NEW;
-        break;
-
-      case 'PACKING':
-        order.status = OrderStatus.NEW;
-        break;
-
-      case 'SHIPPED':
-        order.status = OrderStatus.PACKING;
-        break;
-
-      default:
-        order.status = OrderStatus.NEW;
-        break;
-    }
-
-    let orderRequest: OrderRequest = OrderRequest.fromOrder(order);
-    this.orderService.updateOrder(String(order.id), orderRequest)
-      .subscribe((updatedorder) => {
-        this.refreshTable();
-      },
-        (errmess) => {
-      });
-  }
-
-  advanceOrder(order: Order) {
-    switch (order.status) {
-      case 'NEW':
-        order.status = OrderStatus.PACKING;
-        break;
-
-      case 'PACKING':
-        order.status = OrderStatus.SHIPPED;
-        break;
-
-      case 'SHIPPED':
-        order.status = OrderStatus.SHIPPED;
-        break;
-
-      default:
-        order.status = OrderStatus.NEW;
-        break;
-    }
-
-    let orderRequest: OrderRequest = OrderRequest.fromOrder(order);
-    this.orderService.updateOrder(String(order.id), orderRequest)
-      .subscribe((updatedorder) => {
-        this.refreshTable();
-      },
-        (errmess) => {
-      });
   }
 }

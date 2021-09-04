@@ -30,14 +30,19 @@
                     <td mat-cell *matCellDef="let order"> {{ order.username }} </td>
                 </ng-container>
                 <ng-container matColumnDef="items">
-                    <th mat-header-cell *matHeaderCellDef> Item count </th>
+                    <th mat-header-cell *matHeaderCellDef> Items </th>
                     <td mat-cell *matCellDef="let order"> {{ order.itemsCount() }} </td>
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let order"> {{ order.status }} </td>
+                    <td mat-cell *matCellDef="let order" [ngSwitch]="order.status"> 
+                        <i *ngSwitchCase="'NEW'" class="fas fa-clipboard-list fa-2x" matTooltip="New"></i>
+                        <i *ngSwitchCase="'PACKING'" class="fas fa-clipboard-check fa-2x" matTooltip="Packing"></i>
+                        <i *ngSwitchCase="'SHIPPED'" class="fas fa-shipping-fast fa-2x" matTooltip="Shipped"></i>
+                        <i *ngSwitchDefault class="fas fa-clipboard-list fa-2x"></i>
+                    </td>
                 </ng-container>
-                <ng-container matColumnDef="creation">
+                <ng-container matColumnDef="created">
                     <th mat-header-cell *matHeaderCellDef> Created </th>
                     <td mat-cell *matCellDef="let order"> {{ order.creationTime | date:'short' }} </td>
                 </ng-container>
@@ -48,9 +53,6 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell *matCellDef="let order">
-                        <button mat-raised-button color="primary" (click)="revertOrder(order)" [disabled]="order.status === 'NEW'"> Revert </button>
-                        <button mat-raised-button color="primary" (click)="advanceOrder(order)" [disabled]="order.status === 'SHIPPED'"> Advance </button>
-                        <br/>
                         <button mat-raised-button color="primary" [routerLink]="['/purchasing/orders/', order.id]"> Detail </button>
                     </td>
                 </ng-container>

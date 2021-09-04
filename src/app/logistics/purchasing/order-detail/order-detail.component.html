@@ -1,1 +1,82 @@
-<p>order-detail works!</p>
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h2>Order [{{order.id}}] detail</h2>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex *ngIf="!isLoading && !isLoadingError">
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+            <div fxFlex="70">
+                <h2>Issued by {{order.username}} at {{order.creationTime | date:'short'}}</h2>
+                <h4>updated by logistics at {{order.updateTime | date:'short'}}</h4>
+                <mat-button-toggle-group name="orderStatus" aria-label="Order Status" [value]="order.status" (change)="changeStatus($event)">
+                    <mat-button-toggle value="NEW"><i class="fas fa-clipboard-list"></i> NEW</mat-button-toggle>
+                    <mat-button-toggle value="PACKING"><i class="fas fa-clipboard-check"></i> PACKING</mat-button-toggle>
+                    <mat-button-toggle value="SHIPPED"><i class="fas fa-shipping-fast"></i> SHIPPED</mat-button-toggle>
+                </mat-button-toggle-group>
+                <hr>
+                <div class="table-container mat-elevation-z2">
+                    <table mat-table [dataSource]="orderProducts" matSort matSortDisableClear matSortDirection="desc">
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> ID </th>
+                            <td mat-cell *matCellDef="let product" [ngSwitch]="product.type">
+                                <a *ngSwitchCase="'book'" [routerLink]="['/inventory/books/', product.id]"> {{ product.id }} </a>
+                                <a *ngSwitchDefault [routerLink]="['/inventory/products/', product.id]"> {{ product.id }} </a>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let product" [ngSwitch]="product.type">
+                                <a *ngSwitchCase="'book'" [routerLink]="['/inventory/books/', product.id]"> {{ product.name }} </a>
+                                <a *ngSwitchDefault [routerLink]="['/inventory/products/', product.id]"> {{ product.name }} </a>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="quantity">
+                            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                            <td mat-cell *matCellDef="let product"> {{ orderProductQuantityMap.get(product.id) }} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="orderProductsTableColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: orderProductsTableColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+            <div fxFlex="30">
+                <mat-card class="address-card">
+                    <mat-card-header>
+                      <mat-card-title>{{ order.address.name }} {{ order.address.surname }}</mat-card-title>
+                      <mat-card-subtitle>{{ order.address.email }} </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="address-card-content">
+                            <dl>
+                                <dt>Address</dt>
+                                <dd>{{ order.address.address }}</dd>
+                                <dt>City</dt>
+                                <dd>{{ order.address.city }} ({{ order.address.ZIP }})</dd>
+                                <dt>State</dt>
+                                <dd>{{ order.address.state }}</dd>
+                                <dt>Telephone</dt>
+                                <dd>{{ order.address.telephone }}</dd>
+                            </dl>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div [hidden]="!isLoading">
+        <mat-spinner></mat-spinner>
+        <h4>Loading . . . Please Wait</h4>
+    </div>
+    <div *ngIf="isLoadingError">
+        <h2>Error</h2>
+        <h4>{{errorMessage}}</h4>
+    </div>
+
+    <div class="back-button-container">
+        <app-back-button tooltip="Back to previous page"></app-back-button>
+    </div>
+</div>

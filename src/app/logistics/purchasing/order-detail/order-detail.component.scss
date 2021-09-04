@@ -1,0 +1,31 @@
+.table-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+}
+
+/* Column Widths */
+th {
+    font-size: 20px;
+}
+td.mat-column-id {
+    width: 240px;
+}
+th.mat-column-name,
+td.mat-column-name {
+    width:max-content;
+    text-align:left;
+}
+th.mat-column-quantity,
+td.mat-column-quantity {
+    width: 80px;
+    text-align:left;
+}
+.address-card-content {
+    margin-left: 18px;
+}

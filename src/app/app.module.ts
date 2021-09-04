@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProcessHTTPMsgService } from './commons/service/process-httpmsg-service.service';
+import { NavigationService } from './commons/service/navigation-service.service';
+import { BackButtonComponent } from './commons/component/back-button/back-button.component';
 
 import { AuthenticationService } from './authentication/service/authentication.service';
 import { CredentialsService } from './authentication/service/credentials.service';
@@ -95,6 +98,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
     PurchasingHomeComponent,
     OrderListComponent,
     OrderDetailComponent,
+    BackButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +108,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
     MatCardModule,
     MatBadgeModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -151,6 +156,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
       provide: 'purchasingBaseURL', 
       useValue: purchasingBaseURL
     },
+    NavigationService
   ],
   entryComponents: [
     HomeComponent
