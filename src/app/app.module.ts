@@ -32,6 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProcessHTTPMsgService } from './commons/service/process-httpmsg-service.service';
+import { NavigationService } from './commons/service/navigation-service.service';
+import { BackButtonComponent } from './commons/component/back-button/back-button.component';
 
 import { AuthenticationService } from './authentication/service/authentication.service';
 import { CredentialsService } from './authentication/service/credentials.service';
@@ -96,6 +98,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
     PurchasingHomeComponent,
     OrderListComponent,
     OrderDetailComponent,
+    BackButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,6 +156,7 @@ import { PurchasingHomeComponent } from './logistics/purchasing/purchasing-home/
       provide: 'purchasingBaseURL', 
       useValue: purchasingBaseURL
     },
+    NavigationService
   ],
   entryComponents: [
     HomeComponent

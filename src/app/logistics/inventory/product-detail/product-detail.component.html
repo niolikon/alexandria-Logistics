@@ -11,7 +11,7 @@
 
   <div fxFlex *ngIf="!isLoading && !isLoadingError">
     <form novalidate [formGroup]="productUpdateForm" #lform="ngForm" (ngSubmit)="onProductUpdate()">
-      <div fxLayout="column" fxLayout.gt-sm="row">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
         <div fxFlex="70">
           <ng-template [ngIf]="productUpdateEnabled">
             <mat-form-field class="input-name" appearance="outline">
@@ -92,5 +92,8 @@
   <div *ngIf="isLoadingError">
       <h2>Error</h2>
       <h4>{{errorMessage}}</h4>
+  </div>
+  <div class="back-button-container">
+    <app-back-button tooltip="Back to previous page"></app-back-button>
   </div>
 </div>
